@@ -1,4 +1,5 @@
 // Importacao das bibliotecas
+// Foi instalado o nodemoon, definido em package para reiniciar automaticamente o server
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
