@@ -1,8 +1,10 @@
-const Usuario = require('../models/usuario.model');
+const Usuario = require('../models/produto.model');
 
 module.exports = {
-    index(req, res) {
-        res.json({message: "Hello world from controller usuario"});
+    // Listar todos os usuarios
+    async index(req, res) {
+        const user = await Usuario.find();
+        res.json(user);
     },
     async create(req, res) {
         const {nome_usuario, email_usuario, tipo_usuario, senha_usuario} = req.body;
@@ -17,5 +19,25 @@ module.exports = {
         } else{
             return res.status(500).json(user);
         }
-    }
+    }, 
+
+    // Listar o usuario selecionado pelo id
+    async details(req, res) {
+        const {_id} = req.params;
+        const user = await Usuario.findOne({_id});
+        res.json(user);
+    },
+    // Deletar o usuario pelo seu id
+    async delete(req, res){
+        const { _id } = req.params;
+        const user = await Usuario.findByIdAndDelete({ _id });
+        return res.json(user);
+    },
+    // Atualizar o usuario pelo seu id
+    async update(req,res){
+        const { _id, nome_usuario, email_usuario, senha_usuario,tipo_usuario } = req.body;
+        const data = {nome_usuario,email_usuario,senha_usuario,tipo_usuario};
+        const user = await Usuario.findOneAndUpdate({_id},data,{new:true});
+        res.json(user);
+    },
 }
