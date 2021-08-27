@@ -31,7 +31,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^6.0.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sqlite3": "^5.0.2"
   },
   "devDependencies": {
     "concurrently": "^6.2.1",
