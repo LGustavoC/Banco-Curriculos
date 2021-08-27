@@ -45,7 +45,7 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(process.env.PORT || 5000);
+app.listen(port);
 
 /*
 app.listen(port, function() {
