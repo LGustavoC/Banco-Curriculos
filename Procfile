@@ -1,1 +1,1 @@
-web:npm start --unhandled-rejections=strict
+web:npm run client
