@@ -1,4 +1,4 @@
-const Usuario = require('../models/produto.model');
+const Usuario = require('../models/usuario.model');
 
 module.exports = {
     // Listar todos os usuarios

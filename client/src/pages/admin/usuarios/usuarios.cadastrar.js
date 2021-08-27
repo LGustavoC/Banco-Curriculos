@@ -58,14 +58,17 @@ export default function UsuarioCadastrar() {
       tipo_usuario:tipo
     }
 
-    const response = await api.post('/api/usuarios', data);
+    if(nome !== '' && email !== '' && senha !== '' && tipo !== ''){
+      const response = await api.post('/api/usuarios', data);
 
-    if(response.status==200){
-      window.location.href='/usuarios';
-    }else{
+      if(response.status===200){
+        window.location.href='/admin/usuarios';
+      }else{
       alert('Erro ao cadastrar o usuário!');
+      }
+    } else{
+      alert('Por favor, preencha todos os dados obrigatórios!')
     }
-    
   }
 
   return (
