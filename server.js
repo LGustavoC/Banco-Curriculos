@@ -11,7 +11,7 @@ const app = express();
 
 // Definindo porta, caso nao exista, recebe 5000
 const port = process.env.PORT || 5000
-//const URI = 'mongodb://GugaUser:password@cluster0.33ujj.mongodb.net/banco-curriculos.usuarios?retryWrites=true&w=majority';
+
 const URI = 'mongodb://localhost:27017/banco-curriculos'
 
 // Conectando ao banco de dados (MongoDB)
