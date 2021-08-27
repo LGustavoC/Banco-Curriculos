@@ -40,7 +40,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       {/*Chamar o menu admin implementado*/ }
-      <MenuAdmin />
+      <MenuAdmin title={'Dashboard'} />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
