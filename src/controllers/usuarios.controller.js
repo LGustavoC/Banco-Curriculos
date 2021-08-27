@@ -6,6 +6,7 @@ module.exports = {
         const user = await Usuario.find();
         res.json(user);
     },
+    // Criar Usuário
     async create(req, res) {
         const {nome_usuario, email_usuario, tipo_usuario, senha_usuario} = req.body;
 

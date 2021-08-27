@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
@@ -12,6 +12,9 @@ import { borderLeft } from '@material-ui/system';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
+import { Button } from '@material-ui/core';
+
+import api from '../../../services/api';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,6 +45,29 @@ const useStyles = makeStyles((theme) => ({
 export default function UsuarioCadastrar() {
   const classes = useStyles();
 
+  const [nome, setNome] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [tipo, setTipo] = useState('');
+
+  async function handleSubmit(){
+    const data = {
+      nome_usuario:nome,
+      email_usuario:email,
+      senha_usuario:senha,
+      tipo_usuario:tipo
+    }
+
+    const response = await api.post('/api/usuarios', data);
+
+    if(response.status==200){
+      window.location.href='/usuarios';
+    }else{
+      alert('Erro ao cadastrar o usuário!');
+    }
+    
+  }
+
   return (
     <div className={classes.root}>
       {/*Chamar o menu admin implementado*/ }
@@ -54,7 +80,7 @@ export default function UsuarioCadastrar() {
               <Paper className = {classes.paper}>
                 <h2>Formulário de Cadastro Banco de Currículos</h2>
                 <Grid container spacing={3}>
-                  
+
                   <Grid container item xs={12} sm={12}>
                     <img src={ImgAdmin} />
                   </Grid>
@@ -67,6 +93,8 @@ export default function UsuarioCadastrar() {
                       label="Nome completo"
                       fullWidth
                       autoComplete="nome"
+                      value={nome}
+                      onChange={e => setNome(e.target.value)}
                     />
                   </Grid>
 
@@ -78,6 +106,8 @@ export default function UsuarioCadastrar() {
                       label="E-mail"
                       fullWidth
                       autoComplete="email"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
                     />
                   </Grid>   
 
@@ -86,8 +116,8 @@ export default function UsuarioCadastrar() {
                       <InputLabel htmlFor="age-native-simple">Tipo</InputLabel>
                       <Select
                         native
-                        // value={state.age}
-                        // onChange={handleChange}
+                        value={tipo}
+                        onChange={e => setTipo(e.target.value)}
                         inputProps={{
                           name: 'labelTipo',
                           id: 'tipo',
@@ -109,7 +139,14 @@ export default function UsuarioCadastrar() {
                       label="Senha"
                       fullWidth
                       autoComplete="senha"
+                      value={senha}
+                      onChange={e => setSenha(e.target.value)}
                     />
+                  </Grid>
+                  <Grid item xs={12} sm={12}>
+                    <Button variant="contained" onClick={handleSubmit} color="primary">
+                      Enviar
+                    </Button>
                   </Grid>   
                </Grid>
               </Paper>
