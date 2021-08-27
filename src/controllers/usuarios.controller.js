@@ -1,9 +1,19 @@
 const Usuario = require('../models/usuario.model');
 
+const to = promise => (
+    promise
+        .then(data => ({ data, error: null}))
+        .catch(error => ({ error, data: null}))
+);
+
 module.exports = {
     // Listar todos os usuarios
     async index(req, res) {
-        const user = await Usuario.find();
+        const user = await to(Usuario.find());
+        if (error) {
+            console.log(error);
+            return;
+        }
         res.json(user);
     },
     // Criar Usuário
