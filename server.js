@@ -45,6 +45,9 @@ app.use(express.json());
 
 app.use(routes);
 
+app.listen(process.env.PORT || 5000);
+
+/*
 app.listen(port, function() {
     console.log(`Server running at: ${port}`)
-});
+});*/
