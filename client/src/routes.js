@@ -24,7 +24,7 @@ export default function Routes() {
         <BrowserRouter>
             <Switch>
                 {/* Rota cliente */}
-                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={Dashboard} />
                 <Route path="/produtos/:idProduto" exact component={ProdutoDetails} />
 
                 {/* Rota admin */}
