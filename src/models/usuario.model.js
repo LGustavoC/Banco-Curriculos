@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 
 // Definindo informacoes que serao salvas
 const DataSchema = new mongoose.Schema({
