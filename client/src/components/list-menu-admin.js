@@ -16,7 +16,13 @@ export const mainListItems = (
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button component="a" href='/admin/usuarios'>
+    <ListItem button component="a" href='/admin/usuarios/cadastrar'>
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Cadastrar Usuários"/>
+    </ListItem>
+    <ListItem button component="a" href='/admin/usuarios/'>
       <ListItemIcon>
         <PeopleIcon />
       </ListItemIcon>

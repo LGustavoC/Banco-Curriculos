@@ -1,12 +1,30 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 
 // Definindo informacoes que serao salvas
 const DataSchema = new mongoose.Schema({
     nome_usuario:String,
+    cargo_pretendido:String,
+    dia_nasc:Number,
+    mes_nasc:Number,
+    ano_nasc:Number,
+    estado_civil:Number,
+    sexo:Number,
+    endereco:String,
+    bairro:String,
+    cidade:String,
+    cep:String,
+    tel_1:String,
+    tel_2:String,
+    celular:String,
+    contato:String,
     email_usuario:String,
-    tipo_usuario:{type:Number, default:1},
-    senha_usuario:String,
+    tipo_usuario:String,
+    identidade:String,
+    cpf_usuario:String,
+    possui_veiculo:Number,
+    habilitacao:Number,
+    senha_usuario:String,  
 },{
     timestamps:true
 })

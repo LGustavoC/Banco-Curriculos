@@ -1,11 +1,5 @@
 const Usuario = require('../models/usuario.model');
 
-const to = promise => (
-    promise
-        .then(data => ({ data, error: null}))
-        .catch(error => ({ error, data: null}))
-);
-
 module.exports = {
     // Listar todos os usuarios
     async index(req, res) {
@@ -18,18 +12,59 @@ module.exports = {
     },
     // Criar Usuário
     async create(req, res) {
-        const {nome_usuario, email_usuario, tipo_usuario, senha_usuario} = req.body;
+        const {
+            nome_usuario, 
+            cargo_pretendido, 
+            dia_nasc, 
+            mes_nasc, 
+            ano_nasc, 
+            estado_civil,
+            sexo,
+            endereco,
+            bairro,
+            cidade,
+            cep,
+            tel_1,
+            tel_2,
+            celular,
+            contato,
+            email_usuario, 
+            tipo_usuario,
+            identidade,
+            cpf_usuario,
+            possui_veiculo,
+            habilitacao, 
+            senha_usuario} = req.body;
 
         let data = {};
 
         let user = await Usuario.findOne({email_usuario});
-        if(!user){
-            data = {nome_usuario, email_usuario, tipo_usuario, senha_usuario};
-            user = await Usuario.create(data);
-            return res.status(200).json(user);
-        } else{
-            return res.status(500).json(user);
-        }
+        
+        data = {
+            nome_usuario, 
+            cargo_pretendido, 
+            dia_nasc, 
+            mes_nasc, 
+            ano_nasc, 
+            estado_civil,
+            sexo,
+            endereco,
+            bairro,
+            cidade,
+            cep,
+            tel_1,
+            tel_2,
+            celular,
+            contato,
+            email_usuario, 
+            tipo_usuario,
+            identidade,
+            cpf_usuario,
+            possui_veiculo,
+            habilitacao, 
+            senha_usuario};
+        user = await Usuario.create(data);
+        return res.status(200).json(user);
     }, 
 
     // Listar o usuario selecionado pelo id
@@ -46,8 +81,53 @@ module.exports = {
     },
     // Atualizar o usuario pelo seu id
     async update(req,res){
-        const { _id, nome_usuario, email_usuario, senha_usuario,tipo_usuario } = req.body;
-        const data = {nome_usuario,email_usuario,senha_usuario,tipo_usuario};
+        const { 
+            _id, 
+            nome_usuario, 
+            cargo_pretendido, 
+            dia_nasc, 
+            mes_nasc, 
+            ano_nasc, 
+            estado_civil,
+            sexo,
+            endereco,
+            bairro,
+            cidade,
+            cep,
+            tel_1,
+            tel_2,
+            celular,
+            contato,
+            email_usuario, 
+            tipo_usuario,
+            identidade,
+            cpf_usuario,
+            possui_veiculo,
+            habilitacao, 
+            senha_usuario} = req.body;
+        const data = {
+            nome_usuario, 
+            cargo_pretendido, 
+            dia_nasc, 
+            mes_nasc, 
+            ano_nasc, 
+            estado_civil,
+            sexo,
+            endereco,
+            bairro,
+            cidade,
+            cep,
+            tel_1,
+            tel_2,
+            celular,
+            contato,
+            email_usuario, 
+            tipo_usuario,
+            identidade,
+            cpf_usuario,
+            possui_veiculo,
+            habilitacao, 
+            senha_usuario};
         const user = await Usuario.findOneAndUpdate({_id},data,{new:true});
         res.json(user);
     },
