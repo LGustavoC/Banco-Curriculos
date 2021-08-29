@@ -14,8 +14,11 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import { Button } from '@material-ui/core';
 import { cpfMask } from './mask'
+import axios from 'axios';
 
 import api from '../../../services/api';
+
+
 
 function cpfMascara(e) {
   this.setState({ documentId: cpfMask(e.target.value) })
@@ -47,9 +50,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function UsuarioCadastrar() {
   const classes = useStyles();
-
+  const [erro, setErro ] = useState(true);
   const [nome, setNome] = useState('');
   const [cargo_pretendido, setCargo_pretendido] = useState('');
   const [email, setEmail] = useState('');
@@ -96,20 +100,40 @@ export default function UsuarioCadastrar() {
       identidade: identidade,
       cpf_usuario: cpf,
       possui_veiculo: possui_veiculo,
-      habilitacao: habilitacao
+      habilitacao: habilitacao,
+      erro: erro
     }
 
-    if(nome !== '' && email !== '' && tipo !== ''){
-      const response = await api.post('/api/usuarios', data);
+    if(erro){
+      alert('CEP inválido, digite e valide novamente')
+    }
+    else{
+      if(nome !== '' && dia_nasc !== '' && mes_nasc !== '' && ano_nasc !== '' 
+      && endereco !== '' && bairro !== '' && identidade !== '' && cpf !== ''){
+        const response = await api.post('/api/usuarios', data);
 
-      if(response.status===200){
-        window.location.href='/admin/usuarios';
-      }else{
-      alert('Erro ao cadastrar o usuário!');
+        if(response.status===200){
+          window.location.href='/admin/usuarios';
+        }else{
+        alert('Erro ao cadastrar o usuário!');
+        }
+      } else{
+        alert('Por favor, preencha todos os dados obrigatórios!')
       }
-    } else{
-      alert('Por favor, preencha todos os dados obrigatórios!')
     }
+}
+
+  function handlePesquisa() {
+    console.log(cep);
+    console.log(erro)
+    axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+    .then(response => { 
+      setErro(false);
+      console.log(erro);
+    })
+    .catch(err => {
+        setErro(true);
+    }); 
   }
 
   return (
@@ -170,7 +194,7 @@ export default function UsuarioCadastrar() {
                   />
                   </Grid>   
 
-                  <Grid item xs={12} sm={6}>
+                  {/*<Grid item xs={12} sm={6}>
                     <FormControl className={classes.formControl}>
                       <InputLabel htmlFor="age-native-simple">Tipo</InputLabel>
                       <Select
@@ -187,7 +211,7 @@ export default function UsuarioCadastrar() {
                         <option value={2}>Funcionário</option>
                       </Select>
                     </FormControl>
-                  </Grid>   
+                      </Grid>*/}   
 
                   {/*<Grid item xs={12} sm={3}>
                     <TextField
@@ -346,6 +370,8 @@ export default function UsuarioCadastrar() {
 
                   <Grid item xs={3} sm={3}>
                     <TextField
+                      required
+                      placeholder="00000-000"
                       id="cep"
                       name="cep"
                       label="Cep"
@@ -355,6 +381,13 @@ export default function UsuarioCadastrar() {
                       onChange={e => setCep(e.target.value)}
                     />
                   </Grid>
+
+                <Grid item xs={12} sm={12}>
+                    <Button variant="contained" onClick={handlePesquisa} color="primary">
+                      Validar
+                    </Button>
+                    {erro ?<h5>CEP não validado.</h5> : <h5>CEP validado com sucesso.</h5> }
+                  </Grid> 
 
                   <Grid item xs={3} sm={3}>
                     <TextField
